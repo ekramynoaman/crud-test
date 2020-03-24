@@ -1,3 +1,8 @@
+let inputs = document.getElementsByTagName('input');
+let ProductDesc = document.getElementById('ProductDescInp');
+
+
+
 let productContainer;
 if (localStorage.getItem("productsData") == null) {
   productContainer = [];
@@ -8,6 +13,8 @@ else {
   productContainer = JSON.parse(localStorage.getItem("productsData"));
   displayProduct();
 }
+
+
 function addproduct() {
   let ProductName = document.getElementById("ProductNameInp").value;
   let ProductPrice = document.getElementById("ProductPriceInp").value;
@@ -23,6 +30,7 @@ function addproduct() {
   productContainer.push(product);
   localStorage.setItem("productsData", JSON.stringify(productContainer))
   displayProduct();
+  clearInputs(); // for clear the inputs function declare blow Added by Ekramy
 }
 
 
@@ -40,7 +48,7 @@ function displayProduct() {
         <span class="products-price">` + productContainer[i].price + `</span>
         <p class="products-desc">` + productContainer[i].description + `</p>
         <button onclick="deleteProduct(`+ i + `)" type="button" class="btn btn-outline-danger btn-sm">Delete</button>
-          <a  onclick="updateProduct(`+ i +`)" type="button" class="btn btn-outline-info btn-sm">Update</a>
+          <a  onclick="updateProduct(`+ i +`)" type="button" class="updatebtn btn btn-outline-info btn-sm">Update</a>
       </div>
     </div>`;
   }
@@ -81,11 +89,25 @@ function deleteProduct(indx) {
 }
 
 function updateProduct(indx) {
+
+    // store the index of object in storage
     let productId = indx;
     localStorage.setItem("productIndex", JSON.stringify(productId));
-    // e.target.setAttribute('href', './update_product');
-
-    window.location.href = './updata_product.html'+ productId;
+    
+    // navigate to update_product page
+    window.location.href = './update_product.html';
+  
 
 
 }
+
+// Clear inputs and textarea after add product Add by Ekramy
+function clearInputs () {
+  ProductDesc.value = "";
+  for (let i = 0; i < inputs.length; i++ ){
+    inputs[i].value = "";
+  }
+
+}
+ 
+
