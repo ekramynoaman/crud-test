@@ -85,7 +85,7 @@ function updateProduct(indx) {
     localStorage.setItem("productIndex", JSON.stringify(productId));
     // e.target.setAttribute('href', './update_product');
 
-    window.location.href = './updata_product.html'+ productId;
+    window.location.href = './update_product.html?'+productId;
 
 
 }
