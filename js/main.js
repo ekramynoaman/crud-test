@@ -93,7 +93,7 @@ function updateProduct(indx) {
     // store the index of object in storage
     let productId = indx;
     localStorage.setItem("productIndex", JSON.stringify(productId));
-    
+
     // navigate to update_product page
     window.location.href = './update_product.html';
   
