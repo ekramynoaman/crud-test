@@ -1,4 +1,6 @@
 let inputs = document.getElementsByTagName('input');
+console.log(inputs);
+
 let ProductDesc = document.getElementById('ProductDescInp');
 
 
@@ -88,20 +90,75 @@ function deleteProduct(indx) {
   displayProduct();
 }
 
+//  update sction //
+
+// Globle variables to use in update function and save function
+var productIndex; // For index of product object
+var productToUpdate; // For store the product object
+
+// Inputs of hidden form
+let ProductNam = document.getElementById("ProductNameInpp");
+let ProductPric = document.getElementById("ProductPriceInpp");
+let ProductCategor = document.getElementById("ProductCategoryInpp");
+let ProductDes = document.getElementById("ProductDescInpp");
+
+// Hidden  update Div
+let updateDiv = document.getElementById('update-div');
+
+
+// Update Function
 function updateProduct(indx) {
 
-    // store the index of object in storage
-    let productId = indx;
-    localStorage.setItem("productIndex", JSON.stringify(productId));
+  // store the index of object in storage
+  productIndex = indx;
 
-    // navigate to update_product page
-    window.location.href = './update_product.html';
-  
+  // Show the form
+  updateDiv.style.display = 'block';
 
+  console.log(productIndex); //For Test
+
+  // store spacific object from the product array by its index
+   productToUpdate = productContainer[productIndex];
+
+  console.log(productToUpdate); // For Test
+
+  // Fill inputs values from product object
+  ProductNam.value = productToUpdate.name;
+  ProductPric.value = productToUpdate.price;
+  ProductCategor.value = productToUpdate.category;
+  ProductDes.value = productToUpdate.description;
 
 }
 
-// Clear inputs and textarea after add product Add by Ekramy
+console.log(productToUpdate); //For Test
+
+// Save after update Function
+function saveProduct() {
+  // Assign product object values by inputs value
+  productToUpdate.name = ProductNam.value;
+  productToUpdate.price = ProductPric.value;
+  productToUpdate.category = ProductCategor.value;
+  productToUpdate.description = ProductDes.value;
+
+  console.table(productContainer); // For Test
+
+  // Set products array in local storage
+  localStorage.setItem("productsData", JSON.stringify(productContainer));
+  // hide the form
+  updateDiv.style.display = 'none';
+
+  window.location.reload();
+
+}
+
+
+// Cancle function
+function back() {
+  updateDiv.style.display = 'none';
+}
+
+
+// Clear all inputs and textarea after add product Add by Ekramy
 function clearInputs () {
   ProductDesc.value = "";
   for (let i = 0; i < inputs.length; i++ ){
